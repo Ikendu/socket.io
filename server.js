@@ -11,16 +11,24 @@ app.get(`/`, (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-const user = {};
+const users = {};
 //connecting a user
 io.on("connection", (socket) => {
   console.log(`A new user connected with ${socket.id}`);
 
-  socket.on("name", (mesg) => (user.name = mesg));
-  socket.on("job", (mesg) => (user.job = mesg));
-  socket.on("city", (mesg) => (user.city = mesg));
-  console.log("User Details", user);
-  socket.emit("message", "user we got is " + JSON.stringify(user));
+  socket.on("user:info", (mesg) => (users[mesg.name] = mesg));
+
+  console.log("User Details", users);
+
+  socket.emit("message", "user we got is " + JSON.stringify(users));
+
+  socket.on("update:info", (arg1, res) => {
+    console.log(arg1), res("update done");
+  });
+  socket.on("check:error:timeout", (arg1, res) => {
+    console.log(arg1);
+    // res("Mesg Recieved");
+  });
 });
 
 // console.log('Checking', io)

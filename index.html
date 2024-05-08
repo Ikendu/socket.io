@@ -11,23 +11,35 @@
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <!-- OR -->
     <!-- <script src="/socket.io/socket.io.js"></script> -->
+    <button id="btn">Update User</button>
 
     <script>
-      const name = prompt("Enter your name", "Ezego");
-      const job = prompt("Enter your Occupation", "Developer");
-      const city = prompt("Enter your city", "Nsukka");
+      //   const name = prompt("Enter your name", "Ezego");
+      //   const job = prompt("Enter your Occupation", "Developer");
+      //   const city = prompt("Enter your city", "Nsukka");
+
+      //   const userInfo = { name, job, city };
 
       const socket = io();
       socket.on("connect", () => {
         console.log("Connected to: " + socket.id);
 
-        socket.emit("name", name);
-        socket.emit("job", job);
-        socket.emit("city", city);
+        // socket.emit("user:info", userInfo);
 
         socket.on("message", (msg) => {
           console.log("from Server: " + msg);
         });
+        const btn = document.getElementById("btn");
+        btn.onclick = () => {
+          socket.emit("update:info", "Okeson", (res) => console.log(res));
+        };
+
+        socket
+          .timeout(3000)
+          .emit("check:error:timeout", "Helen online", (err, res) => {
+            if (err) console.log("Mesg not recieved");
+            else console.log(res);
+          });
       });
     </script>
   </body>
