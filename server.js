@@ -14,6 +14,10 @@ app.get(`/`, (req, res) => {
 //connecting a user
 io.on("connection", (socket) => {
   console.log(`A new user connected with ${socket.id}`);
+  socket.on("message", (mesg) => {
+    console.log("Mesages created is" + mesg);
+  });
+  socket.emit("message", "Server is greeting");
 });
 // console.log('Checking', io)
 const port = 3000;
