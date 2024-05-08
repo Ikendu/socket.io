@@ -6,17 +6,28 @@
     <title>socket io</title>
   </head>
   <body>
+    <h1>Socket IO Deep diving</h1>
+    <p>Anything to keep Nano moving forward</p>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <!-- OR -->
     <!-- <script src="/socket.io/socket.io.js"></script> -->
 
     <script>
-      const socket = io();
+      const name = prompt("Enter your name", "Ezego");
+      const job = prompt("Enter your Occupation", "Developer");
+      const city = prompt("Enter your city", "Nsukka");
 
+      const socket = io();
       socket.on("connect", () => {
-        console.log(`A new user connected with ${socket.id}`);
-        socket.emit("message", " Hey Server here I come");
-        socket.on("message", (mesg) => console.log("Message is saying " + mesg));
+        console.log("Connected to: " + socket.id);
+
+        socket.emit("name", name);
+        socket.emit("job", job);
+        socket.emit("city", city);
+
+        socket.on("message", (msg) => {
+          console.log("from Server: " + msg);
+        });
       });
     </script>
   </body>
