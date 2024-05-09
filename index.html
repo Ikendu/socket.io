@@ -13,41 +13,65 @@
     <!-- <script src="/socket.io/socket.io.js"></script> -->
     <button id="btn">Update User</button>
 
+    <button id="on">On</button>
+    <button id="off">Off</button>
+
     <script>
-      const name = prompt("Enter your name", "Ezego");
-      const mood = prompt("Enter your Occupation", "Happy");
+      //   const name = prompt("Enter your name", "Ezego");
+      //   const mood = prompt("Enter your Occupation", "Happy");
       //   const city = prompt("Enter your city", "Nsukka");
 
       //   const userInfo = { name, job, city };
 
       const socket = io();
+
+      const on = document.getElementById("on");
+      const off = document.getElementById("off");
+
       socket.on("connect", () => {
         console.log("Connected to: " + socket.id);
 
         // socket.emit("user:info", userInfo);
 
-        socket.on("message", (msg) => {
-          console.log("from Server: " + msg);
-        });
-        const btn = document.getElementById("btn");
-        btn.onclick = () => {
-          socket.emit("update:info", "Okeson", (res) => console.log(res));
+        on.onclick = () => {
+          socket.emit(
+            "on:event",
+            "on event1",
+            "on event2",
+            "on event3",
+            "on event4"
+          );
+        };
+        off.onclick = () => {
+          socket.emit("off:event", "off event1", "off event2", "off event3");
         };
 
-        socket
-          .timeout(3000)
-          .emit("check:error:timeout", "Helen online", (err, res) => {
-            if (err) console.log("Mesg not recieved");
-            else console.log(res);
-          });
-        let count = 0;
-        // setInterval(() => socket.emit("ping", count++), 1000);
+        socket.onAnyOutgoing((event, ...args) => {
+          console.log("Events ", event, " Args ", args);
+        });
 
-        socket.on("broadcast", (mesg) => console.log(mesg));
-        socket.emit("my:mood", name, mood);
-        socket.on("res:mood", () =>
-          document.write(`${name}'s, mood is ${mood} <br>`)
-        );
+        // socket.on("message", (msg) => {
+        //   console.log("from Server: " + msg);
+        // });
+        // const btn = document.getElementById("btn");
+        // btn.onclick = () => {
+        //   socket.emit("update:info", "Okeson", (res) => console.log(res));
+        // };
+
+        // socket
+        //   .timeout(3000)
+        //   .emit("check:error:timeout", "Helen online", (err, res) => {
+        //     if (err) console.log("Mesg not recieved");
+        //     else console.log(res);
+        //   });
+        // let count = 0;
+        // // setInterval(() => socket.emit("ping", count++), 1000);
+
+        // socket.on("broadcast", (mesg) => console.log(mesg));
+        // socket.emit("my:mood", name, mood);
+        // socket.on("res:mood", () =>
+        //   document.write(`${name}'s, mood is ${mood} <br>`)
+        // );
       });
     </script>
   </body>

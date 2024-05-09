@@ -12,9 +12,20 @@ app.get(`/`, (req, res) => {
 });
 
 const users = {};
+const myfunc = (mesg) => console.log("Hello on and off guys working" + mesg);
 //connecting a user
 io.on("connection", (socket) => {
   console.log(`A new user connected with ${socket.id}`);
+
+  socket.on("on:event", myfunc);
+
+  socket.on("off:event", () => {
+    socket.off("on:event", myfunc);
+  });
+
+  socket.onAny((event, ...args) => {
+    console.log("Events ", event, " Args ", args);
+  });
 
   // socket.on("user:info", (mesg) => (users[mesg.name] = mesg));
 
@@ -22,18 +33,18 @@ io.on("connection", (socket) => {
 
   // socket.emit("message", "user we got is " + JSON.stringify(users));
 
-  socket.on("update:info", (arg1, res) => {
-    console.log(arg1), res("update done");
-  });
-  socket.on("check:error:timeout", (arg1, res) => {
-    console.log(arg1);
-    res("Mesg Recieved");
-  });
-  io.emit("broadcast", "Hello guys");
-  // socket.on("ping", (mesg) => console.log(mesg));
-  socket.on("my:mood", (name, mood) => {
-    io.emit("res:mood", name, mood);
-  });
+  // socket.on("update:info", (arg1, res) => {
+  //   console.log(arg1), res("update done");
+  // });
+  // socket.on("check:error:timeout", (arg1, res) => {
+  //   console.log(arg1);
+  //   res("Mesg Recieved");
+  // });
+  // io.emit("broadcast", "Hello guys");
+  // // socket.on("ping", (mesg) => console.log(mesg));
+  // socket.on("my:mood", (name, mood) => {
+  //   io.emit("res:mood", name, mood);
+  // });
 });
 
 // console.log('Checking', io)
