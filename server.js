@@ -35,17 +35,12 @@ io.on("connection", (socket) => {
   socket.on("joinDesignRoom", () => {
     socket.join("designRoom");
     console.log("UI/UX Design room: 🌌🪐");
-    console.log(io.socket.adapter.rooms.get("designRoom"));
+    console.log(io.sockets.adapter.rooms.get("designRoom"));
   });
   socket.on("joinWebDevRoom", () => {
     socket.join("webDevRoom");
     console.log("Web Dev room: 🌍🌎");
     console.log(io.sockets.adapter.rooms.get("webDevRoom"));
-  });
-  socket.on("joinOtherRoom", () => {
-    socket.join("otherRoom");
-    console.log("General Room: ⛩🌄💏👫🎻🎸");
-    console.log(io.sockets.adapter.rooms.get("otherRoom"));
   });
 
   // socket.on("on:event", myfunc);

@@ -11,7 +11,7 @@
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <!-- OR -->
     <!-- <script src="/socket.io/socket.io.js"></script> -->
-    <button title="Click here to update" id="btn">Update User</button>
+    <button title="Click here to join room" id="btn">Update User</button>
 
     <button id="on">On</button>
     <button id="off">Off</button>
@@ -37,31 +37,24 @@
           "Enter you room name",
           "Game Dev, Networking, Graphics, UI/UX or Web Dev"
         );
-        const joinGameRoom = socket.emit("joinGameRoom");
-        const joinNetworkRoom = socket.emit("joinNetworkRoom");
-        const joinGraphicsRoom = socket.emit("joinGraphicsRoom");
-        const joinDesignRoom = socket.emit("joinDesignRoom");
-        const joinWebDevRoom = socket.emit("joinWebDevRoom");
-        const joinOtherRoom = socket.emit("joinOtherRoom");
+        console.log("Connected to: " + socket.id);
 
         switch (myRoom) {
           case "Game Dev":
-            joinGameRoom;
+            socket.emit("joinGameRoom");
             break;
           case "Networking":
-            joinNetworkRoom;
+            socket.emit("joinNetworkRoom");
             break;
           case "Graphics":
-            joinGraphicsRoom;
+            socket.emit("joinGraphicsRoom");
             break;
           case "UI/UX":
-            joinDesignRoom;
+            socket.emit("joinDesignRoom");
             break;
           case "Web Dev":
-            joinWebDevRoom;
+            socket.emit("joinWebDevRoom");
             break;
-          default:
-            joinOtherRoom;
         }
 
         // on.onclick = () => {
