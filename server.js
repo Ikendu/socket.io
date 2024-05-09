@@ -19,21 +19,33 @@ io.on("connection", (socket) => {
 
   socket.on("joinGameRoom", () => {
     socket.join("gameRoom");
+    console.log("Game building room: 🏁🏁");
+    console.log(io.sockets.adapter.rooms.get("gameRoom"));
   });
   socket.on("joinNetworkRoom", () => {
     socket.join("networkRoom");
+    console.log("Networking room: ❄❄");
+    console.log(io.sockets.adapter.rooms.get("networkRoom"));
   });
   socket.on("joinGraphicsRoom", () => {
     socket.join("graphicsRoom");
+    console.log("Graphical Room: 🌈🌀");
+    console.log(io.sockets.adapter.rooms.get("graphicsRoom"));
   });
   socket.on("joinDesignRoom", () => {
     socket.join("designRoom");
+    console.log("UI/UX Design room: 🌌🪐");
+    console.log(io.socket.adapter.rooms.get("designRoom"));
   });
   socket.on("joinWebDevRoom", () => {
     socket.join("webDevRoom");
+    console.log("Web Dev room: 🌍🌎");
+    console.log(io.sockets.adapter.rooms.get("webDevRoom"));
   });
   socket.on("joinOtherRoom", () => {
     socket.join("otherRoom");
+    console.log("General Room: ⛩🌄💏👫🎻🎸");
+    console.log(io.sockets.adapter.rooms.get("otherRoom"));
   });
 
   // socket.on("on:event", myfunc);
