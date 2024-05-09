@@ -11,7 +11,7 @@
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <!-- OR -->
     <!-- <script src="/socket.io/socket.io.js"></script> -->
-    <button id="btn">Update User</button>
+    <button title="Click here to update" id="btn">Update User</button>
 
     <button id="on">On</button>
     <button id="off">Off</button>
@@ -33,22 +33,53 @@
 
         // socket.emit("user:info", userInfo);
 
-        on.onclick = () => {
-          socket.emit(
-            "on:event",
-            "on event1",
-            "on event2",
-            "on event3",
-            "on event4"
-          );
-        };
-        off.onclick = () => {
-          socket.emit("off:event", "off event1", "off event2", "off event3");
-        };
+        const myRoom = prompt(
+          "Enter you room name",
+          "Game Dev, Networking, Graphics, UI/UX or Web Dev"
+        );
+        const joinGameRoom = socket.emit("joinGameRoom");
+        const joinNetworkRoom = socket.emit("joinNetworkRoom");
+        const joinGraphicsRoom = socket.emit("joinGraphicsRoom");
+        const joinDesignRoom = socket.emit("joinDesignRoom");
+        const joinWebDevRoom = socket.emit("joinWebDevRoom");
+        const joinOtherRoom = socket.emit("joinOtherRoom");
 
-        socket.onAnyOutgoing((event, ...args) => {
-          console.log("Events ", event, " Args ", args);
-        });
+        switch (myRoom) {
+          case "Game Dev":
+            joinGameRoom;
+            break;
+          case "Networking":
+            joinNetworkRoom;
+            break;
+          case "Graphics":
+            joinGraphicsRoom;
+            break;
+          case "UI/UX":
+            joinDesignRoom;
+            break;
+          case "Web Dev":
+            joinWebDevRoom;
+            break;
+          default:
+            joinOtherRoom;
+        }
+
+        // on.onclick = () => {
+        //   socket.emit(
+        //     "on:event",
+        //     "on event1",
+        //     "on event2",
+        //     "on event3",
+        //     "on event4"
+        //   );
+        // };
+        // off.onclick = () => {
+        //   socket.emit("off:event", "off event1", "off event2", "off event3");
+        // };
+
+        // socket.onAnyOutgoing((event, ...args) => {
+        //   console.log("Events ", event, " Args ", args);
+        // });
 
         // socket.on("message", (msg) => {
         //   console.log("from Server: " + msg);

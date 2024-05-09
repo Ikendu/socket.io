@@ -17,15 +17,34 @@ const myfunc = (mesg) => console.log("Hello on and off guys working" + mesg);
 io.on("connection", (socket) => {
   console.log(`A new user connected with ${socket.id}`);
 
-  socket.on("on:event", myfunc);
-
-  socket.on("off:event", () => {
-    socket.off("on:event", myfunc);
+  socket.on("joinGameRoom", () => {
+    socket.join("gameRoom");
+  });
+  socket.on("joinNetworkRoom", () => {
+    socket.join("networkRoom");
+  });
+  socket.on("joinGraphicsRoom", () => {
+    socket.join("graphicsRoom");
+  });
+  socket.on("joinDesignRoom", () => {
+    socket.join("designRoom");
+  });
+  socket.on("joinWebDevRoom", () => {
+    socket.join("webDevRoom");
+  });
+  socket.on("joinOtherRoom", () => {
+    socket.join("otherRoom");
   });
 
-  socket.onAny((event, ...args) => {
-    console.log("Events ", event, " Args ", args);
-  });
+  // socket.on("on:event", myfunc);
+
+  // socket.on("off:event", () => {
+  //   socket.off("on:event", myfunc);
+  // });
+
+  // socket.onAny((event, ...args) => {
+  //   console.log("Events ", event, " Args ", args);
+  // });
 
   // socket.on("user:info", (mesg) => (users[mesg.name] = mesg));
 
