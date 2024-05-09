@@ -7,15 +7,15 @@
   </head>
   <body>
     <h1>Socket IO Deep diving</h1>
-    <p>Anything to keep Nano moving forward</p>
+    <p>Anything to keep Nanocodes moving forward</p>
     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
     <!-- OR -->
     <!-- <script src="/socket.io/socket.io.js"></script> -->
     <button id="btn">Update User</button>
 
     <script>
-      //   const name = prompt("Enter your name", "Ezego");
-      //   const job = prompt("Enter your Occupation", "Developer");
+      const name = prompt("Enter your name", "Ezego");
+      const mood = prompt("Enter your Occupation", "Happy");
       //   const city = prompt("Enter your city", "Nsukka");
 
       //   const userInfo = { name, job, city };
@@ -40,6 +40,14 @@
             if (err) console.log("Mesg not recieved");
             else console.log(res);
           });
+        let count = 0;
+        // setInterval(() => socket.emit("ping", count++), 1000);
+
+        socket.on("broadcast", (mesg) => console.log(mesg));
+        socket.emit("my:mood", name, mood);
+        socket.on("res:mood", () =>
+          document.write(`${name}'s, mood is ${mood} <br>`)
+        );
       });
     </script>
   </body>

@@ -16,18 +16,23 @@ const users = {};
 io.on("connection", (socket) => {
   console.log(`A new user connected with ${socket.id}`);
 
-  socket.on("user:info", (mesg) => (users[mesg.name] = mesg));
+  // socket.on("user:info", (mesg) => (users[mesg.name] = mesg));
 
-  console.log("User Details", users);
+  // console.log("User Details", users);
 
-  socket.emit("message", "user we got is " + JSON.stringify(users));
+  // socket.emit("message", "user we got is " + JSON.stringify(users));
 
   socket.on("update:info", (arg1, res) => {
     console.log(arg1), res("update done");
   });
   socket.on("check:error:timeout", (arg1, res) => {
     console.log(arg1);
-    // res("Mesg Recieved");
+    res("Mesg Recieved");
+  });
+  io.emit("broadcast", "Hello guys");
+  // socket.on("ping", (mesg) => console.log(mesg));
+  socket.on("my:mood", (name, mood) => {
+    io.emit("res:mood", name, mood);
   });
 });
 
